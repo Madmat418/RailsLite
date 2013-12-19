@@ -1,7 +1,7 @@
 require 'active_support/core_ext'
 require 'json'
 require 'webrick'
-require 'rails_lite'
+require '../lib/rails_lite'
 
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPRequest.html
@@ -32,9 +32,9 @@ end
 server.mount_proc '/' do |req, res|
   case req.path
   when '/'
-    contr = ExampleController.new(req, res).create
+    contr = ExampleController.new(req, res, req.path).create
   when '/new'
-    contr = ExampleController.new(req, res).new
+    contr = ExampleController.new(req, res, req.path).new
   end
 end
 
